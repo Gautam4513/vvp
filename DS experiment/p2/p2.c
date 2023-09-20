@@ -20,8 +20,6 @@ int main()
             printf("mathch is found array[%d]=%d\n",i+1,array[i]);
             a=1;
         }
-
-
     }
     if(a==0)
     {
