@@ -1,4 +1,4 @@
-/*Write a program to implement Queue Sort*/
+/*circular queue*/
 #include<stdio.h>
 #include<stdlib.h>
 struct queue
@@ -45,13 +45,13 @@ int main()
 }
 int isempty(struct queue *q)
 {
-  if(q->r==q->f) return 1;
+  if(q->r==-1&&q->f==-1) return 1;
   else return 0;
 
 }
 int isfull(struct queue *q)
 {
-  if(q->r==q->size-1) return 1;
+  if((q->r+1)%(q->size)==(q->f)) return 1;
   else return 0;
 }
 void enqueue(struct queue *q)
@@ -63,9 +63,16 @@ void enqueue(struct queue *q)
   }
   else
   {
-    printf("enter a eliment you want to stor : ");
+    printf("enter an element you want to store : ");
     scanf("%d",&val);
-    q->r++;
+    if(q->r==-1)
+    {
+      q->r++;
+      q->f++;
+    }
+    else{
+      q->r=(q->r+1)%(q->size);
+    }
     q->arr[q->r]=val;
   }
 }
@@ -79,8 +86,16 @@ void dqueue(struct queue *q)
     return;
   }
   else{
-    q->f++;
-    a=q->arr[q->f];
+     a=q->arr[q->f];
+     if(q->f==q->r){
+      q->f=q->r=-1;
+     }
+     else{
+q->f= (q->f+1)%q->size;
+     }
+   
+       
+     
     printf("\n\n%d is dequeue",a);
     return;
   }
